@@ -3,7 +3,7 @@ import exphbs from "express-handlebars";
 import ViewsRouter from "./routes/views.routes.js";
 import { Server } from "socket.io";
 const app = express();
-const PUERTO = 8080;
+const PUERTO = 8081;
 
 // consume carpeta public
 app.use(express.json());
@@ -27,7 +27,7 @@ let mensajes = [];
 io.on("connection", (socket) => {
   console.log("Un cliente se conecto");
 
-  socket.on("mensaje", (data) => {
+  io.on("mensaje", (data) => {
     mensajes.push(data);
 
     io.emit("mensajesLogs", mensajes);
