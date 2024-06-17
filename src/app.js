@@ -3,7 +3,7 @@ import exphbs from "express-handlebars";
 import ViewsRouter from "./routes/views.routes.js";
 import { Server } from "socket.io";
 const app = express();
-const PUERTO = 8081;
+const PUERTO = 8080;
 
 // consume carpeta public
 app.use(express.json());
