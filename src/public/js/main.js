@@ -1,7 +1,4 @@
 const socket = io();
-console.log("Holis");
-
-socket.emit("mensaje", "Hola Mundo, te escribo desde el cliente");
 
 let usuario;
 
@@ -23,12 +20,32 @@ Swal.fire({
   usuario = result.value;
 });
 
-chatBox.addEventListener("keyup", (event) => {
+ChatBox.addEventListener("keyup", (event) => {
   if (event.key === "Enter") {
-    if (chatBox.value.trim().length > 0) {
-      socket.emit("mensaje", { usuario: usuario, mensaje: chatBox.value });
+    if (ChatBox.value.trim().length > 0) {
+      socket.emit("mensaje", { usuario: usuario, mensaje: ChatBox.value });
 
-      chatBox.value = "";
+      ChatBox.value = "";
     }
   }
+});
+
+socket.on("mensajesLogs", (data) => {
+  const messagesLogs = document.getElementById("messagesLogs");
+
+  let mensajes = "";
+
+  data.forEach((mensaje) => {
+    mensajes += `
+
+                    <div class ="message">
+
+                        <span class = "user" > ${mensaje.usuario} </span>
+
+                        <div class = "text" > ${mensaje.mensaje} </div>
+
+                    </div> `;
+  });
+
+  messagesLogs.innerHTML = mensajes;
 });

@@ -22,10 +22,14 @@ const http = app.listen(PUERTO, () => {
 
 const io = new Server(http);
 
+let mensajes = [];
+
 io.on("connection", (socket) => {
   console.log("Un cliente se conecto");
 
   socket.on("mensaje", (data) => {
-    console.log(data);
+    mensajes.push(data);
+
+    io.emit("mensajesLogs", mensajes);
   });
 });
